@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GaniiTricks - Exam Prep & Short Tricks</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', 'Noto Sans Kannada', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+    .dark-mode { background-color: #0f172a !important; color: #f8fafc !important; }
+    .dark-mode .app-card { background-color: #1e293b !important; border-color: #334155 !important; }
+    .dark-mode .app-text-main { color: #f8fafc !important; }
+    .dark-mode .app-text-muted { color: #94a3b8 !important; }
+    .dark-mode .app-subtle-bg { background-color: #0f172a !important; border-color: #334155 !important; }
+    .dark-mode .app-border { border-color: #334155 !important; }
+    .dark-mode .app-input { background-color: #0f172a !important; border-color: #475569 !important; color: #f8fafc !important; }
+  </style>
+</head>
+<body id="app-body" class="bg-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+  <div id="main-container" class="app-card max-w-xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 transition">
+    
+    <!-- Channel Header -->
+    <div class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-800 text-white p-6">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <!-- Channel Subscribe Badge -->
+          <a href="https://www.youtube.com/@GaniiTricks?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded-full text-xs font-bold flex items-center gap-1 shadow-sm transition">
+            <span>▶️</span> <span>Subscribe</span>
+          </a>
+          <!-- Dark Mode Toggle -->
+          <button id="theme-toggle-btn" type="button" class="text-xs bg-indigo-900/60 hover:bg-indigo-900 px-2 py-1 rounded text-indigo-200 hover:text-white transition flex items-center gap-1">
+            <span id="theme-icon">🌙</span> <span id="theme-label">Dark</span>
+          </button>
+          <!-- Sound Toggle -->
+          <button id="sound-toggle-btn" type="button" class="text-xs bg-indigo-900/60 hover:bg-indigo-900 px-2 py-1 rounded text-indigo-200 hover:text-white transition flex items-center gap-1">
+            <span id="sound-icon">🔊</span> <span id="sound-label">Audio On</span>
+          </button>
+        </div>
+        
+        <!-- Language Switcher Buttons -->
+        <div class="flex items-center gap-1 bg-indigo-900/60 p-1 rounded-lg text-xs font-semibold">
+          <button id="lang-both" type="button" class="lang-btn px-2.5 py-1 rounded bg-white text-indigo-900 shadow-sm transition">Both</button>
+          <button id="lang-en" type="button" class="lang-btn px-2.5 py-1 rounded text-indigo-200 hover:text-white transition">EN</button>
+          <button id="lang-kn" type="button" class="lang-btn px-2.5 py-1 rounded text-indigo-200 hover:text-white transition">ಕನ್ನಡ</button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-2xl font-bold tracking-tight">GaniiTricks</h1>
+            <span class="text-amber-300 text-xl">🎯</span>
+          </div>
+          <p class="text-indigo-100 text-xs mt-0.5">Karnataka Competitive Exam Prep • GK & Computers</p>
+        </div>
+        <div class="text-right flex items-center gap-3">
+          <!-- Countdown Timer -->
+          <div class="text-center bg-indigo-900/60 px-3 py-1.5 rounded-xl border border-indigo-400/30">
+            <div class="text-[10px] text-indigo-200 font-semibold uppercase tracking-wide">Time Left</div>
+            <div id="timer-display" class="text-lg font-mono font-bold text-amber-300">00:30</div>
+          </div>
+          <div>
+            <div class="text-xs text-indigo-200 font-medium">Score</div>
+            <div id="score-display" class="text-xl font-extrabold text-white">0 / 0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic Filter Bar & Creator Studio Trigger -->
+    <div class="app-subtle-bg bg-indigo-50/70 border-b border-indigo-100 px-6 py-2.5 flex items-center justify-between overflow-x-auto text-xs font-semibold gap-2">
+      <div class="flex items-center gap-2">
+        <span class="app-text-muted text-slate-500 whitespace-nowrap">Topic:</span>
+        <button id="filter-all" type="button" class="filter-btn px-3 py-1 rounded-full bg-indigo-600 text-white shadow-sm transition whitespace-nowrap">All Topics</button>
+        <button id="filter-comp" type="button" class="filter-btn px-3 py-1 rounded-full bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">💻 Computer Basics</button>
+        <button id="filter-gk" type="button" class="filter-btn px-3 py-1 rounded-full bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">🌍 General Knowledge</button>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="open-creator-btn" type="button" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm whitespace-nowrap">
+          <span>➕ Add Question</span>
+        </button>
+        <div id="best-score-badge" class="whitespace-nowrap text-[11px] font-bold text-indigo-700 bg-indigo-100/80 px-2.5 py-0.5 rounded-full">
+          ⭐ Best: 0 / 0
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Question Card -->
+    <div id="quiz-card" class="p-6">
+      <!-- Meta / Badges & Progress Indicator -->
+      <div class="flex items-center justify-between text-xs font-semibold mb-4">
+        <div class="flex items-center gap-2">
+          <span id="question-category" class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md border border-indigo-100">
+            Computer Basics
+          </span>
+          <span id="question-type-badge" class="bg-amber-100 text-amber-900 px-2.5 py-1 rounded-md font-bold">
+            MCQ
+          </span>
+        </div>
+        <span id="progress-indicator" class="app-text-muted text-slate-500 font-medium">
+          Question 1 of 5
+        </span>
+      </div>
+
+      <!-- Question Text (Bilingual) -->
+      <div class="space-y-1.5 mb-5">
+        <h2 id="question-en" class="app-text-main text-lg font-bold text-slate-800 leading-snug">
+          <!-- Populated by JS -->
+        </h2>
+        <p id="question-kn" class="app-text-muted text-base text-slate-600 font-medium leading-relaxed">
+          <!-- Populated by JS -->
+        </p>
+        <p id="msq-helper-text" class="hidden text-xs font-bold text-indigo-600">
+          ℹ️ Multiple Select: Choose all correct options, then click Submit. (ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಸರಿಯಾದ ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ)
+        </p>
+      </div>
+
+      <!-- Options Container -->
+      <div id="options-container" class="space-y-3 mb-4">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <!-- MSQ Submit Button -->
+      <div id="msq-action-container" class="hidden mb-4">
+        <button id="msq-submit-btn" type="button" class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-sm">
+          ✓ Submit Selection / ಉತ್ತರ ಸಲ್ಲಿಸಿ
+        </button>
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="feedback" class="hidden mb-4 p-3.5 rounded-xl text-sm font-semibold"></div>
+
+      <!-- Trick Box with YouTube Integration -->
+      <div class="app-border border-t border-slate-100 pt-4">
+        <button id="trick-toggle-btn" type="button" class="w-full py-2.5 px-4 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-xl font-semibold flex items-center justify-center gap-2 transition">
+          <span>💡 Reveal GaniiTrick / ಶಾರ್ಟ್‌ಕಟ್ ಟ್ರಿಕ್ ನೋಡಿ</span>
+        </button>
+
+        <div id="trick-box" class="hidden mt-3 p-4 bg-amber-50/80 border border-amber-200 rounded-xl text-slate-800 text-sm space-y-3">
+          <div>
+            <p class="font-bold text-amber-950 flex items-center gap-1.5 mb-1.5">
+              <span>✨ GaniiTrick Memory Shortcut:</span>
+            </p>
+            <p id="trick-en" class="text-slate-700"></p>
+            <p id="trick-kn" class="text-slate-700 mt-1"></p>
+          </div>
+
+          <!-- YouTube Video Explanation Link -->
+          <div class="pt-2 border-t border-amber-200/60">
+            <a id="youtube-video-link" href="https://www.youtube.com/@GaniiTricks" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition shadow-sm">
+              <span>▶️ Watch Video Explanation on GaniiTricks</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation & Controls -->
+      <div class="app-border mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <button id="prev-btn" type="button" class="app-text-muted text-xs font-semibold text-slate-500 hover:text-indigo-600 disabled:opacity-30 disabled:pointer-events-none transition flex items-center gap-1">
+            ← Previous
+          </button>
+          <button id="reset-btn" type="button" class="app-text-muted text-xs font-semibold text-slate-400 hover:text-slate-600 transition ml-2">
+            🔄 Reset
+          </button>
+        </div>
+        <button id="next-btn" type="button" class="py-2 px-5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:pointer-events-none text-white text-xs font-bold rounded-xl transition shadow-sm">
+          Next Question →
+        </button>
+      </div>
+    </div>
+
+    <!-- Final Results Card (Hidden initially) -->
+    <div id="results-card" class="hidden p-8 text-center">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+        🏆
+      </div>
+      <h2 class="app-text-main text-2xl font-bold text-slate-800 mb-1">Quiz Completed!</h2>
+      <p class="app-text-muted text-slate-500 text-sm mb-6">ಕ್ವಿಜ್ ಪೂರ್ಣಗೊಂಡಿದೆ! ನಿಮ್ಮ ಅಂತಿಮ ಸಾಧನೆ:</p>
+
+      <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100 max-w-sm mx-auto mb-6">
+        <div class="text-xs uppercase font-bold text-indigo-600 tracking-wider mb-1">Final Score</div>
+        <div id="final-score-text" class="text-4xl font-black text-indigo-900 mb-2">0 / 0</div>
+        <div id="final-best-score" class="text-xs font-bold text-amber-700 mb-2"></div>
+        <p id="final-message" class="text-xs font-medium text-indigo-700"></p>
+      </div>
+
+      <!-- YouTube Channel Promotion Box on Results -->
+      <div class="bg-red-50 border border-red-200 rounded-2xl p-4 max-w-sm mx-auto mb-6 text-left">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center text-lg font-bold flex-shrink-0">
+            ▶️
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-800 text-xs">Learn More on GaniiTricks!</h3>
+            <p class="text-[11px] text-slate-600">Daily videos on GK & Computer shortcut tricks in Kannada.</p>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/@GaniiTricks?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="mt-3 block text-center py-2 px-4 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl shadow-sm transition">
+          🔔 Subscribe to GaniiTricks on YouTube
+        </a>
+      </div>
+
+      <!-- Social Share / Copy Result -->
+      <div class="space-y-3 max-w-sm mx-auto mb-6">
+        <button id="share-whatsapp-btn" type="button" class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+          <span>📲 Share Score on WhatsApp</span>
+        </button>
+        <button id="copy-summary-btn" type="button" class="app-card w-full py-2.5 px-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+          <span>📋 Copy Score Summary / ನಕಲಿಸಿ</span>
+        </button>
+        <p id="copy-toast" class="hidden text-xs text-emerald-600 font-semibold">✓ Copied to clipboard!</p>
+      </div>
+
+      <button id="restart-btn" type="button" class="py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow-md transition">
+        🔄 Practice Again / ಪುನಃ ಅಭ್ಯಾಸ ಮಾಡಿ
+      </button>
+    </div>
+
+    <!-- IN-APP QUESTION CREATOR STUDIO MODAL -->
+    <div id="creator-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="app-card bg-white max-w-lg w-full max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
+        <!-- Modal Header -->
+        <div class="bg-indigo-600 text-white p-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">✍️</span>
+            <div>
+              <h3 class="font-bold text-sm">GaniiTricks Question Studio</h3>
+              <p class="text-[11px] text-indigo-100">Add MCQs & MSQs with memory tricks</p>
+            </div>
+          </div>
+          <button id="close-creator-btn" type="button" class="text-white hover:bg-indigo-700 p-1 rounded-lg text-lg transition">✕</button>
+        </div>
+
+        <!-- Form Body -->
+        <div class="p-5 overflow-y-auto space-y-4 text-xs">
+          <!-- Type and Topic -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1 app-text-main">Topic / ವಿಷಯ</label>
+              <select id="form-topic" class="app-input w-full p-2 border border-slate-200 rounded-lg bg-slate-50">
+                <option value="computer">💻 Computer Basics</option>
+                <option value="gk">🌍 General Knowledge</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1 app-text-main">Question Type / ವಿಧ</label>
+              <select id="form-type" class="app-input w-full p-2 border border-slate-200 rounded-lg bg-slate-50">
+                <option value="mcq">MCQ (Single Choice)</option>
+                <option value="msq">MSQ (Multiple Choice)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- English Question -->
+          <div>
+            <label class="block font-bold text-slate-700 mb-1 app-text-main">Question (English)</label>
+            <input id="form-q-en" type="text" placeholder="e.g. What is the full form of RAM?" class="app-input w-full p-2 border border-slate-200 rounded-lg" />
+          </div>
+
+          <!-- Kannada Question -->
+          <div>
+            <label class="block font-bold text-slate-700 mb-1 app-text-main">Question (ಕನ್ನಡದಲ್ಲಿ)</label>
+            <input id="form-q-kn" type="text" placeholder="ಉದಾ: RAM ನ ಪೂರ್ಣ ರೂಪವೇನು?" class="app-input w-full p-2 border border-slate-200 rounded-lg" />
+          </div>
+
+          <!-- Options -->
+          <div class="space-y-2">
+            <label class="block font-bold text-slate-700 app-text-main">Options & Correct Answer (Select correct one/all):</label>
+            
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="form-opt-correct-0" class="w-4 h-4 text-indigo-600 rounded" />
+              <input type="text" id="form-opt-0" placeholder="Option A (e.g. Random Access Memory)" class="app-input flex-1 p-2 border border-slate-200 rounded-lg" />
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="form-opt-correct-1" class="w-4 h-4 text-indigo-600 rounded" />
+              <input type="text" id="form-opt-1" placeholder="Option B (e.g. Read Access Memory)" class="app-input flex-1 p-2 border border-slate-200 rounded-lg" />
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="form-opt-correct-2" class="w-4 h-4 text-indigo-600 rounded" />
+              <input type="text" id="form-opt-2" placeholder="Option C (e.g. Run Access Memory)" class="app-input flex-1 p-2 border border-slate-200 rounded-lg" />
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="form-opt-correct-3" class="w-4 h-4 text-indigo-600 rounded" />
+              <input type="text" id="form-opt-3" placeholder="Option D (e.g. Real Access Memory)" class="app-input flex-1 p-2 border border-slate-200 rounded-lg" />
+            </div>
+          </div>
+
+          <!-- GaniiTrick Memory Shortcut -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1 app-text-main">Short Trick (English)</label>
+              <input id="form-trick-en" type="text" placeholder="e.g. RAM = Random and Volatile!" class="app-input w-full p-2 border border-slate-200 rounded-lg" />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1 app-text-main">Short Trick (ಕನ್ನಡದಲ್ಲಿ)</label>
+              <input id="form-trick-kn" type="text" placeholder="ಉದಾ: R = Random ನೆನಪಿಡಿ!" class="app-input w-full p-2 border border-slate-200 rounded-lg" />
+            </div>
+          </div>
+
+          <!-- YouTube Video Link -->
+          <div>
+            <label class="block font-bold text-slate-700 mb-1 app-text-main">YouTube Video / Shorts Link (Optional)</label>
+            <input id="form-video-url" type="text" placeholder="https://www.youtube.com/@GaniiTricks" class="app-input w-full p-2 border border-slate-200 rounded-lg" />
+          </div>
+
+          <!-- Form Message -->
+          <div id="form-msg" class="hidden p-2 rounded-lg text-xs font-semibold"></div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="app-border border-t border-slate-100 p-4 bg-slate-50 flex items-center justify-between gap-3">
+          <button id="copy-code-btn" type="button" class="py-2 px-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-100 transition text-xs font-semibold">
+            📋 Copy Code Block
+          </button>
+          <button id="add-to-quiz-btn" type="button" class="py-2 px-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition text-xs font-bold shadow-sm">
+            ✓ Add to Live Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 1. QUESTION DATABASE
+    const masterQuestions = [
+      {
+        id: 1,
+        type: "mcq",
+        topic: "computer",
+        category: "Computer Basics",
+        categoryKn: "ಕಂಪ್ಯೂಟರ್ ಬೇಸಿಕ್ಸ್",
+        videoUrl: "https://www.youtube.com/@GaniiTricks",
+        videoLabel: "Watch Windows Shortcut Tricks",
+        en: {
+          q: "Which shortcut key permanently deletes a file without sending it to the Recycle Bin?",
+          options: ["Ctrl + Delete", "Shift + Delete", "Alt + Delete", "Tab + Delete"],
+          trick: "<strong>S</strong>hift = <strong>S</strong>kip Recycle Bin!"
+        },
+        kn: {
+          q: "ವಿಂಡೋಸ್‌ನಲ್ಲಿ ಫೈಲ್ ಅನ್ನು ರಿಸೈಕಲ್ ಬಿನ್‌ಗೆ ಕಳುಹಿಸದೆ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲು ಯಾವ ಶಾರ್ಟ್‌ಕಟ್ ಬಳಸಲಾಗುತ್ತದೆ?",
+          options: ["Ctrl + Delete", "Shift + Delete", "Alt + Delete", "Tab + Delete"],
+          trick: "<strong>S</strong> = <strong>ಶಾಶ್ವತ</strong>ವಾಗಿ (Permanent) ಅಳಿಸಲು <strong>Shift</strong> ನೆನಪಿಡಿ!"
+        },
+        correct: 1
+      },
+      {
+        id: 2,
+        type: "msq",
+        topic: "computer",
+        category: "Computer Basics",
+        categoryKn: "ಕಂಪ್ಯೂಟರ್ ಬೇಸಿಕ್ಸ್",
+        videoUrl: "https://www.youtube.com/@GaniiTricks",
+        videoLabel: "Watch Hardware Input/Output Shortcuts",
+        en: {
+          q: "Which of the following are primary INPUT devices of a computer? (Select all that apply)",
+          options: ["Keyboard", "Optical Mouse", "LED Monitor", "Flatbed Scanner"],
+          trick: "<strong>K-M-S</strong> (Keyboard, Mouse, Scanner) feed data IN; Monitor displays output OUT!"
+        },
+        kn: {
+          q: "ಇವುಗಳಲ್ಲಿ ಯಾವುವು ಕಂಪ್ಯೂಟರ್‌ನ ಇನ್‌ಪುಟ್ (Input) ಸಾಧನಗಳಾಗಿವೆ? (ಎಲ್ಲ ಸರಿಯಾದ ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ)",
+          options: ["ಕೀಬೋರ್ಡ್ (Keyboard)", "ಮೌಸ್ (Mouse)", "ಮಾನಿಟರ್ (Monitor)", "ಸ್ಕ್ಯಾನರ್ (Scanner)"],
+          trick: "<strong>K-M-S</strong> (ಕೀಬೋರ್ಡ್, ಮೌಸ್, ಸ್ಕ್ಯಾನರ್) ಮಾಹಿತಿಯನ್ನು ಒಳಗೆ ಕಳುಹಿಸುತ್ತವೆ (Input)!"
+        },
+        correct: [0, 1, 3]
+      },
+      {
+        id: 3,
+        type: "mcq",
+        topic: "gk",
+        category: "General Knowledge (Karnataka)",
+        categoryKn: "ಸಾಮಾನ್ಯ ಜ್ಞಾನ (ಕರ್ನಾಟಕ)",
+        videoUrl: "https://www.youtube.com/@GaniiTricks",
+        videoLabel: "Watch Karnataka Geography Short Tricks",
+        en: {
+          q: "Which is the highest peak in Karnataka?",
+          options: ["Kudremukh", "Mullayanagiri", "Baba Budangiri", "Brahmagiri"],
+          trick: "<strong>M</strong>ullayanagiri = <strong>M</strong>aximum height in Karnataka (1,930 m)!"
+        },
+        kn: {
+          q: "ಕರ್ನಾಟಕದ ಅತ್ಯುನ್ನತ ಶಿಖರ ಯಾವುದು?",
+          options: ["ಕುದುರೆಮುಖ", "ಮುಳ್ಳಯ್ಯನಗಿರಿ", "ಬಾಬಾ ಬುಡನ್‌ಗಿರಿ", "ಬ್ರಹ್ಮಗಿರಿ"],
+          trick: "<strong>ಮು</strong>ಳ್ಳಯ್ಯನಗಿರಿ = <strong>ಮು</strong>ಖ್ಯವಾದ ಅತ್ಯುನ್ನತ ಶಿಖರ (1,930 ಮೀ)!"
+        },
+        correct: 1
+      },
+      {
+        id: 4,
+        type: "msq",
+        topic: "gk",
+        category: "General Knowledge (Rivers)",
+        categoryKn: "ಸಾಮಾನ್ಯ ಜ್ಞಾನ (ನದಿಗಳು)",
+        videoUrl: "https://www.youtube.com/@GaniiTricks",
+        videoLabel: "Watch Karnataka River Origin Mnemonics",
+        en: {
+          q: "Which of the following rivers originate in Karnataka? (Select all that apply)",
+          options: ["Kaveri (Cauvery)", "Sharavathi", "Tungabhadra", "Narmada"],
+          trick: "<strong>K-S-T</strong> (Kaveri, Sharavathi, Tunga) are Karnataka's pride; Narmada flows from MP!"
+        },
+        kn: {
+          q: "ಕೆಳಗಿನವುಗಳಲ್ಲಿ ಯಾವ ನದಿಗಳು ಕರ್ನಾಟಕದಲ್ಲೇ ಉಗಮಗೊಳ್ಳುತ್ತವೆ? (ಎಲ್ಲ ಸರಿಯಾದ ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ)",
+          options: ["ಕಾವೇರಿ", "ಶರಾವತಿ", "ತುಂಗಭದ್ರಾ", "ನರ್ಮದಾ"],
+          trick: "<strong>K-S-T</strong>: ಕಾವೇರಿ (ತಲಕಾವೇರಿ), ಶರಾವತಿ (ಅಂಬುತೀರ್ಥ), ತುಂಗಾ (ಗಂಗಾಮೂಲ) ಕರ್ನಾಟಕದ ನದಿಗಳು!"
+        },
+        correct: [0, 1, 2]
+      },
+      {
+        id: 5,
+        type: "mcq",
+        topic: "computer",
+        category: "Computer Basics",
+        categoryKn: "ಕಂಪ್ಯೂಟರ್ ಬೇಸಿಕ್ಸ್",
+        videoUrl: "https://www.youtube.com/@GaniiTricks",
+        videoLabel: "Watch Computer CPU Architecture Tricks",
+        en: {
+          q: "Which part of the computer is known as the 'Brain' of the computer?",
+          options: ["RAM", "Hard Disk", "CPU (Central Processing Unit)", "Monitor"],
+          trick: "<strong>C</strong>PU = <strong>C</strong>ontrols all mental processing, just like our brain!"
+        },
+        kn: {
+          q: "ಕಂಪ್ಯೂಟರ್‌ನ 'ಮೆದುಳು' (Brain) ಎಂದು ಯಾವುದನ್ನು ಕರೆಯಲಾಗುತ್ತದೆ?",
+          options: ["RAM", "ಹಾರ್ದ್ ಡಿಸ್ಕ್", "CPU (ಸೆಂಟ್ರಲ್ ಪ್ರೊಸೆಸಿಂಗ್ ಯೂನಿಟ್)", "ಮಾನಿಟರ್"],
+          trick: "<strong>C</strong>PU = <strong>C</strong>entral commander (ಮೆದುಳಿನಂತೆ ನಿಯಂತ್ರಿಸುತ್ತದೆ)!"
+        },
+        correct: 2
+      }
+    ];
+
+    // 2. STATE VARIABLES
+    const QUESTION_TIME_LIMIT = 30;
+    let activeFilter = 'all';
+    let filteredQuestions = [...masterQuestions];
+    let currentIndex = 0;
+    let score = 0;
+    let userAnswers = {};
+    let msqSelected = new Set();
+    let currentLanguage = 'both';
+    let timeLeft = QUESTION_TIME_LIMIT;
+    let timerInterval = null;
+    let soundEnabled = true;
+    let isDarkMode = false;
+
+    // 3. SYNTHESIZED SOUND EFFECTS
+    let audioCtx = null;
+    function playBeep(freq, type = 'sine', duration = 0.15) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playCorrectSound() {
+      playBeep(587.33, 'sine', 0.1);
+      setTimeout(() => playBeep(880, 'sine', 0.25), 100);
+    }
+
+    function playWrongSound() {
+      playBeep(260, 'sawtooth', 0.25);
+    }
+
+    // 4. DOM ELEMENTS
+    const appBody = document.getElementById('app-body');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+
+    const quizCard = document.getElementById('quiz-card');
+    const resultsCard = document.getElementById('results-card');
+    const qCategory = document.getElementById('question-category');
+    const qTypeBadge = document.getElementById('question-type-badge');
+    const progressIndicator = document.getElementById('progress-indicator');
+    const qEn = document.getElementById('question-en');
+    const qKn = document.getElementById('question-kn');
+    const msqHelper = document.getElementById('msq-helper-text');
+    const optionsContainer = document.getElementById('options-container');
+    const msqActionContainer = document.getElementById('msq-action-container');
+    const msqSubmitBtn = document.getElementById('msq-submit-btn');
+    const feedback = document.getElementById('feedback');
+    const trickToggleBtn = document.getElementById('trick-toggle-btn');
+    const trickBox = document.getElementById('trick-box');
+    const trickEn = document.getElementById('trick-en');
+    const trickKn = document.getElementById('trick-kn');
+    const youtubeVideoLink = document.getElementById('youtube-video-link');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const scoreDisplay = document.getElementById('score-display');
+    const timerDisplay = document.getElementById('timer-display');
+    const bestScoreBadge = document.getElementById('best-score-badge');
+    const soundToggleBtn = document.getElementById('sound-toggle-btn');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundLabel = document.getElementById('sound-label');
+
+    const finalScoreText = document.getElementById('final-score-text');
+    const finalBestScore = document.getElementById('final-best-score');
+    const finalMessage = document.getElementById('final-message');
+    const restartBtn = document.getElementById('restart-btn');
+    const shareWhatsappBtn = document.getElementById('share-whatsapp-btn');
+    const copySummaryBtn = document.getElementById('copy-summary-btn');
+    const copyToast = document.getElementById('copy-toast');
+
+    const filterAll = document.getElementById('filter-all');
+    const filterComp = document.getElementById('filter-comp');
+    const filterGk = document.getElementById('filter-gk');
+
+    const langBoth = document.getElementById('lang-both');
+    const langEn = document.getElementById('lang-en');
+    const langKn = document.getElementById('lang-kn');
+
+    // Creator Studio Elements
+    const openCreatorBtn = document.getElementById('open-creator-btn');
+    const closeCreatorBtn = document.getElementById('close-creator-btn');
+    const creatorModal = document.getElementById('creator-modal');
+    const formTopic = document.getElementById('form-topic');
+    const formType = document.getElementById('form-type');
+    const formQEn = document.getElementById('form-q-en');
+    const formQKn = document.getElementById('form-q-kn');
+    const formOpt0 = document.getElementById('form-opt-0');
+    const formOpt1 = document.getElementById('form-opt-1');
+    const formOpt2 = document.getElementById('form-opt-2');
+    const formOpt3 = document.getElementById('form-opt-3');
+    const formCorrect0 = document.getElementById('form-opt-correct-0');
+    const formCorrect1 = document.getElementById('form-opt-correct-1');
+    const formCorrect2 = document.getElementById('form-opt-correct-2');
+    const formCorrect3 = document.getElementById('form-opt-correct-3');
+    const formTrickEn = document.getElementById('form-trick-en');
+    const formTrickKn = document.getElementById('form-trick-kn');
+    const formVideoUrl = document.getElementById('form-video-url');
+    const formMsg = document.getElementById('form-msg');
+    const copyCodeBtn = document.getElementById('copy-code-btn');
+    const addToQuizBtn = document.getElementById('add-to-quiz-btn');
+
+    // 5. LOCAL STORAGE: HIGH SCORE & THEME
+    function loadSavedPreferences() {
+      try {
+        const savedTheme = localStorage.getItem('ganiitricks_theme');
+        if (savedTheme === 'dark') {
+          enableDarkMode(true);
+        }
+      } catch (e) {}
+      updateBestScoreBadge();
+    }
+
+    function getBestScore(topic) {
+      try {
+        const val = localStorage.getItem(`ganiitricks_best_${topic}`);
+        return val !== null ? parseInt(val, 10) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function saveBestScore(topic, newScore) {
+      try {
+        const currentBest = getBestScore(topic);
+        if (currentBest === null || newScore > currentBest) {
+          localStorage.setItem(`ganiitricks_best_${topic}`, newScore);
+          return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+
+    function updateBestScoreBadge() {
+      const best = getBestScore(activeFilter);
+      if (best !== null) {
+        bestScoreBadge.textContent = `⭐ Best: ${best} / ${filteredQuestions.length}`;
+      } else {
+        bestScoreBadge.textContent = `⭐ Best: -- / ${filteredQuestions.length}`;
+      }
+    }
+
+    // 6. DARK MODE TOGGLE
+    function enableDarkMode(enable) {
+      isDarkMode = enable;
+      if (enable) {
+        appBody.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+        themeLabel.textContent = 'Light';
+      } else {
+        appBody.classList.remove('dark-mode');
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = 'Dark';
+      }
+      try {
+        localStorage.setItem('ganiitricks_theme', enable ? 'dark' : 'light');
+      } catch (e) {}
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      enableDarkMode(!isDarkMode);
+    });
+
+    // 7. SOUND TOGGLE
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundIcon.textContent = soundEnabled ? '🔊' : '🔇';
+      soundLabel.textContent = soundEnabled ? 'Audio On' : 'Muted';
+    });
+
+    // 8. TIMER LOGIC
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = QUESTION_TIME_LIMIT;
+      updateTimerUI();
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerUI();
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          handleTimeOut();
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+      timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      if (timeLeft <= 5) {
+        timerDisplay.className = 'text-lg font-mono font-bold text-rose-400 animate-pulse';
+      } else {
+        timerDisplay.className = 'text-lg font-mono font-bold text-amber-300';
+      }
+    }
+
+    function handleTimeOut() {
+      if (userAnswers[currentIndex] !== undefined) return;
+      playWrongSound();
+      userAnswers[currentIndex] = -1;
+
+      feedback.className = 'mb-4 p-3.5 rounded-xl text-sm font-semibold bg-rose-100 text-rose-900 border border-rose-300';
+      feedback.textContent = '⏰ Time Expired! ಸಮಯ ಮುಗಿದಿದೆ! Review the correct answer and trick below.';
+      feedback.classList.remove('hidden');
+
+      renderQuestion();
+    }
+
+    // 9. TOPIC FILTER
+    function applyFilter(topic) {
+      activeFilter = topic;
+      [filterAll, filterComp, filterGk].forEach(btn => {
+        btn.className = 'filter-btn px-3 py-1 rounded-full bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap';
+      });
+      if (topic === 'all') filterAll.className = 'filter-btn px-3 py-1 rounded-full bg-indigo-600 text-white shadow-sm transition whitespace-nowrap';
+      if (topic === 'computer') filterComp.className = 'filter-btn px-3 py-1 rounded-full bg-indigo-600 text-white shadow-sm transition whitespace-nowrap';
+      if (topic === 'gk') filterGk.className = 'filter-btn px-3 py-1 rounded-full bg-indigo-600 text-white shadow-sm transition whitespace-nowrap';
+
+      filteredQuestions = topic === 'all' 
+        ? [...masterQuestions] 
+        : masterQuestions.filter(q => q.topic === topic);
+
+      currentIndex = 0;
+      score = 0;
+      userAnswers = {};
+      msqSelected.clear();
+      quizCard.classList.remove('hidden');
+      resultsCard.classList.add('hidden');
+      updateBestScoreBadge();
+      startTimer();
+      renderQuestion();
+    }
+
+    filterAll.addEventListener('click', () => applyFilter('all'));
+    filterComp.addEventListener('click', () => applyFilter('computer'));
+    filterGk.addEventListener('click', () => applyFilter('gk'));
+
+    // 10. LANGUAGE SWITCHER
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      [langBoth, langEn, langKn].forEach(b => {
+        b.className = 'lang-btn px-2.5 py-1 rounded text-indigo-200 hover:text-white transition';
+      });
+      if (lang === 'both') langBoth.className = 'lang-btn px-2.5 py-1 rounded bg-white text-indigo-900 shadow-sm transition';
+      if (lang === 'en') langEn.className = 'lang-btn px-2.5 py-1 rounded bg-white text-indigo-900 shadow-sm transition';
+      if (lang === 'kn') langKn.className = 'lang-btn px-2.5 py-1 rounded bg-white text-indigo-900 shadow-sm transition';
+
+      renderQuestion();
+    }
+
+    langBoth.addEventListener('click', () => setLanguage('both'));
+    langEn.addEventListener('click', () => setLanguage('en'));
+    langKn.addEventListener('click', () => setLanguage('kn'));
+
+    // 11. RENDER QUESTION
+    function renderQuestion() {
+      const q = filteredQuestions[currentIndex];
+      const hasAnswered = userAnswers[currentIndex] !== undefined;
+
+      if (hasAnswered) {
+        clearInterval(timerInterval);
+      }
+
+      progressIndicator.textContent = `Question ${currentIndex + 1} of ${filteredQuestions.length}`;
+      qCategory.textContent = currentLanguage === 'kn' ? q.categoryKn : q.category;
+      scoreDisplay.textContent = `${score} / ${filteredQuestions.length}`;
+
+      if (q.type === 'msq') {
+        qTypeBadge.textContent = 'MSQ (Multi-Select)';
+        qTypeBadge.className = 'bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md font-bold text-xs';
+        msqHelper.classList.remove('hidden');
+        msqActionContainer.classList.toggle('hidden', hasAnswered);
+      } else {
+        qTypeBadge.textContent = 'MCQ (Single-Select)';
+        qTypeBadge.className = 'bg-amber-100 text-amber-900 px-2.5 py-1 rounded-md font-bold text-xs';
+        msqHelper.classList.add('hidden');
+        msqActionContainer.classList.add('hidden');
+      }
+
+      if (currentLanguage === 'both') {
+        qEn.classList.remove('hidden');
+        qKn.classList.remove('hidden');
+        qEn.textContent = `${currentIndex + 1}. ${q.en.q}`;
+        qKn.textContent = q.kn.q;
+        trickEn.classList.remove('hidden');
+        trickKn.classList.remove('hidden');
+      } else if (currentLanguage === 'en') {
+        qEn.classList.remove('hidden');
+        qKn.classList.add('hidden');
+        qEn.textContent = `${currentIndex + 1}. ${q.en.q}`;
+        trickEn.classList.remove('hidden');
+        trickKn.classList.add('hidden');
+      } else {
+        qEn.classList.add('hidden');
+        qKn.classList.remove('hidden');
+        qKn.textContent = `${currentIndex + 1}. ${q.kn.q}`;
+        trickEn.classList.add('hidden');
+        trickKn.classList.remove('hidden');
+      }
+
+      trickEn.innerHTML = `<strong>English Trick:</strong> ${q.en.trick}`;
+      trickKn.innerHTML = `<strong>ಕನ್ನಡ ಟ್ರಿಕ್:</strong> ${q.kn.trick}`;
+
+      if (q.videoUrl) {
+        youtubeVideoLink.href = q.videoUrl;
+        youtubeVideoLink.classList.remove('hidden');
+        if (q.videoLabel) {
+          youtubeVideoLink.querySelector('span:first-child').textContent = `▶️ ${q.videoLabel}`;
+        }
+      } else {
+        youtubeVideoLink.classList.add('hidden');
+      }
+
+      if (!hasAnswered) {
+        feedback.classList.add('hidden');
+        trickBox.classList.add('hidden');
+        nextBtn.disabled = true;
+      } else {
+        nextBtn.disabled = false;
+        trickBox.classList.remove('hidden');
+      }
+
+      optionsContainer.innerHTML = '';
+      const opts = currentLanguage === 'kn' ? q.kn.options : q.en.options;
+
+      opts.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        let prefix = ['A) ', 'B) ', 'C) ', 'D) '][optIdx];
+
+        if (q.type === 'mcq') {
+          btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 transition flex items-center justify-between font-medium text-slate-700';
+          btn.innerHTML = `<span><strong>${prefix}</strong>${optText}</span><span class="status-icon text-xs font-bold"></span>`;
+
+          if (hasAnswered) {
+            const selected = userAnswers[currentIndex];
+            if (optIdx === q.correct) {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 flex items-center justify-between font-medium';
+              btn.querySelector('.status-icon').textContent = '✅ Correct';
+            } else if (optIdx === selected) {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-900 flex items-center justify-between font-medium';
+              btn.querySelector('.status-icon').textContent = '❌ Wrong';
+            } else {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-slate-100 opacity-60 flex items-center justify-between font-medium text-slate-500';
+            }
+          } else {
+            btn.addEventListener('click', () => handleMcqSelect(optIdx));
+          }
+        } else {
+          const isChecked = msqSelected.has(optIdx);
+          btn.className = `w-full text-left p-3.5 rounded-xl border-2 transition flex items-center justify-between font-medium ${
+            isChecked ? 'border-indigo-600 bg-indigo-50 text-indigo-950' : 'border-slate-200 hover:border-indigo-300 text-slate-700'
+          }`;
+          
+          let checkIcon = isChecked ? '☑️' : '⬜';
+          btn.innerHTML = `<span class="flex items-center gap-2"><span>${checkIcon}</span> <span><strong>${prefix}</strong>${optText}</span></span><span class="status-icon text-xs font-bold"></span>`;
+
+          if (hasAnswered) {
+            const chosenList = userAnswers[currentIndex] || [];
+            const isCorrectAnswer = q.correct.includes(optIdx);
+            const userPicked = Array.isArray(chosenList) && chosenList.includes(optIdx);
+
+            if (isCorrectAnswer && userPicked) {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 flex items-center justify-between font-medium';
+              btn.querySelector('.status-icon').textContent = '✅ Correctly Selected';
+            } else if (isCorrectAnswer && !userPicked) {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-amber-500 bg-amber-50 text-amber-900 flex items-center justify-between font-medium';
+              btn.querySelector('.status-icon').textContent = '⚠️ Missed Correct Option';
+            } else if (!isCorrectAnswer && userPicked) {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-900 flex items-center justify-between font-medium';
+              btn.querySelector('.status-icon').textContent = '❌ Incorrect Choice';
+            } else {
+              btn.className = 'w-full text-left p-3.5 rounded-xl border-2 border-slate-100 opacity-60 flex items-center justify-between font-medium text-slate-500';
+            }
+          } else {
+            btn.addEventListener('click', () => {
+              if (msqSelected.has(optIdx)) {
+                msqSelected.delete(optIdx);
+              } else {
+                msqSelected.add(optIdx);
+              }
+              renderQuestion();
+            });
+          }
+        }
+
+        optionsContainer.appendChild(btn);
+      });
+
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.textContent = currentIndex === filteredQuestions.length - 1 ? 'Finish Quiz 🏁' : 'Next Question →';
+    }
+
+    // 12. MCQ SELECTION
+    function handleMcqSelect(chosenIdx) {
+      if (userAnswers[currentIndex] !== undefined) return;
+      clearInterval(timerInterval);
+      const q = filteredQuestions[currentIndex];
+      userAnswers[currentIndex] = chosenIdx;
+
+      if (chosenIdx === q.correct) {
+        score++;
+        playCorrectSound();
+        feedback.className = 'mb-4 p-3.5 rounded-xl text-sm font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300';
+        feedback.textContent = '🎉 Correct Answer! ಸರಿಯಾದ ಉತ್ತರ!';
+      } else {
+        playWrongSound();
+        feedback.className = 'mb-4 p-3.5 rounded-xl text-sm font-semibold bg-rose-100 text-rose-900 border border-rose-300';
+        feedback.textContent = `❌ Incorrect! Correct option: ${['A', 'B', 'C', 'D'][q.correct]}`;
+      }
+      feedback.classList.remove('hidden');
+      scoreDisplay.textContent = `${score} / ${filteredQuestions.length}`;
+      renderQuestion();
+    }
+
+    // 13. MSQ SUBMIT
+    msqSubmitBtn.addEventListener('click', () => {
+      if (userAnswers[currentIndex] !== undefined) return;
+      if (msqSelected.size === 0) {
+        feedback.className = 'mb-4 p-3.5 rounded-xl text-sm font-semibold bg-amber-100 text-amber-900 border border-amber-300';
+        feedback.textContent = '⚠️ Please select at least one option before submitting! (ಕನಿಷ್ಠ ಒಂದು ಆಯ್ಕೆ ಆರಿಸಿ)';
+        feedback.classList.remove('hidden');
+        return;
+      }
+
+      clearInterval(timerInterval);
+      const q = filteredQuestions[currentIndex];
+      const selectedArray = Array.from(msqSelected).sort((a, b) => a - b);
+      userAnswers[currentIndex] = selectedArray;
+
+      const correctSorted = [...q.correct].sort((a, b) => a - b);
+      const isExactMatch = selectedArray.length === correctSorted.length && selectedArray.every((val, index) => val === correctSorted[index]);
+
+      if (isExactMatch) {
+        score++;
+        playCorrectSound();
+        feedback.className = 'mb-4 p-3.5 rounded-xl text-sm font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300';
+        feedback.textContent = '🎉 Perfect! All correct options identified! ಎಲ್ಲ ಸರಿಯಾದ ಉತ್ತರಗಳನ್ನು ಗುರುತಿಸಿದ್ದೀರಿ!';
+      } else {
+        playWrongSound();
+        const correctLetters = correctSorted.map(i => ['A', 'B', 'C', 'D'][i]).join(', ');
+        feedback.className = 'mb-4 p-3.5 rounded-xl text-sm font-semibold bg-rose-100 text-rose-900 border border-rose-300';
+        feedback.textContent = `❌ Not quite! The correct combination is: ${correctLetters}`;
+      }
+      feedback.classList.remove('hidden');
+
+      msqSelected.clear();
+      scoreDisplay.textContent = `${score} / ${filteredQuestions.length}`;
+      renderQuestion();
+    });
+
+    // 14. EVENT LISTENERS
+    trickToggleBtn.addEventListener('click', () => {
+      trickBox.classList.toggle('hidden');
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        msqSelected.clear();
+        if (userAnswers[currentIndex] === undefined) {
+          startTimer();
+        }
+        renderQuestion();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < filteredQuestions.length - 1) {
+        currentIndex++;
+        msqSelected.clear();
+        if (userAnswers[currentIndex] === undefined) {
+          startTimer();
+        }
+        renderQuestion();
+      } else {
+        clearInterval(timerInterval);
+        quizCard.classList.add('hidden');
+        resultsCard.classList.remove('hidden');
+        finalScoreText.textContent = `${score} / ${filteredQuestions.length}`;
+        
+        const isNewRecord = saveBestScore(activeFilter, score);
+        const best = getBestScore(activeFilter);
+        finalBestScore.textContent = isNewRecord 
+          ? `🎉 New Personal Record! (ಹೊಸ ದಾಖಲೆ: ${best}/${filteredQuestions.length})` 
+          : `⭐ Your Best Record: ${best}/${filteredQuestions.length}`;
+        updateBestScoreBadge();
+
+        const pct = (score / filteredQuestions.length) * 100;
+        if (pct === 100) {
+          finalMessage.textContent = '🌟 Outstanding! 100% Mastery in GaniiTricks exam prep!';
+        } else if (pct >= 50) {
+          finalMessage.textContent = '👍 Great effort! Review the memory shortcuts and try again.';
+        } else {
+          finalMessage.textContent = '📚 Keep practicing! Re-watch the video tricks to strengthen your recall.';
+        }
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      if (userAnswers[currentIndex] !== undefined) {
+        const q = filteredQuestions[currentIndex];
+        if (q.type === 'mcq') {
+          if (userAnswers[currentIndex] === q.correct) score--;
+        } else {
+          const chosen = userAnswers[currentIndex];
+          if (Array.isArray(chosen)) {
+            const correctSorted = [...q.correct].sort();
+            if (chosen.length === correctSorted.length && chosen.every((v, i) => v === correctSorted[i])) {
+              score--;
+            }
+          }
+        }
+        delete userAnswers[currentIndex];
+        msqSelected.clear();
+        scoreDisplay.textContent = `${score} / ${filteredQuestions.length}`;
+        startTimer();
+        renderQuestion();
+      }
+    });
+
+    restartBtn.addEventListener('click', () => {
+      currentIndex = 0;
+      score = 0;
+      userAnswers = {};
+      msqSelected.clear();
+      resultsCard.classList.add('hidden');
+      quizCard.classList.remove('hidden');
+      startTimer();
+      renderQuestion();
+    });
+
+    // 15. SHARING LOGIC
+    function getShareText() {
+      return `🎯 I scored ${score}/${filteredQuestions.length} on GaniiTricks GK & Computer Basics Exam Quiz!\n\n💡 Practice competitive exam MCQs with Kannada & English memory tricks on GaniiTricks!`;
+    }
+
+    shareWhatsappBtn.addEventListener('click', () => {
+      const text = encodeURIComponent(getShareText());
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    });
+
+    copySummaryBtn.addEventListener('click', () => {
+      const text = getShareText();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast());
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast();
+      }
+    });
+
+    function showToast() {
+      copyToast.classList.remove('hidden');
+      setTimeout(() => copyToast.classList.add('hidden'), 2500);
+    }
+
+    // 16. CREATOR STUDIO MODAL LOGIC
+    openCreatorBtn.addEventListener('click', () => {
+      creatorModal.classList.remove('hidden');
+    });
+
+    closeCreatorBtn.addEventListener('click', () => {
+      creatorModal.classList.add('hidden');
+    });
+
+    function buildQuestionFromForm() {
+      const qEn = formQEn.value.trim();
+      const qKn = formQKn.value.trim();
+      const o0 = formOpt0.value.trim();
+      const o1 = formOpt1.value.trim();
+      const o2 = formOpt2.value.trim();
+      const o3 = formOpt3.value.trim();
+
+      if (!qEn || !o0 || !o1 || !o2 || !o3) {
+        return { error: "Please enter the English question and all 4 options!" };
+      }
+
+      const checkedIndices = [];
+      if (formCorrect0.checked) checkedIndices.push(0);
+      if (formCorrect1.checked) checkedIndices.push(1);
+      if (formCorrect2.checked) checkedIndices.push(2);
+      if (formCorrect3.checked) checkedIndices.push(3);
+
+      if (checkedIndices.length === 0) {
+        return { error: "Please check at least one correct option checkbox!" };
+      }
+
+      const type = formType.value;
+      const topic = formTopic.value;
+      const category = topic === 'computer' ? "Computer Basics" : "General Knowledge";
+      const categoryKn = topic === 'computer' ? "ಕಂಪ್ಯೂಟರ್ ಬೇಸಿಕ್ಸ್" : "ಸಾಮಾನ್ಯ ಜ್ಞಾನ";
+      const trickEn = formTrickEn.value.trim() || "Remember the key concept from GaniiTricks!";
+      const trickKn = formTrickKn.value.trim() || "GaniiTricks ಶಾರ್ಟ್‌ಕಟ್ ನೆನಪಿಡಿ!";
+      const videoUrl = formVideoUrl.value.trim() || "https://www.youtube.com/@GaniiTricks";
+
+      const newQ = {
+        id: masterQuestions.length + 1,
+        type: type,
+        topic: topic,
+        category: category,
+        categoryKn: categoryKn,
+        videoUrl: videoUrl,
+        videoLabel: "Watch Topic Tricks on GaniiTricks",
+        en: {
+          q: qEn,
+          options: [o0, o1, o2, o3],
+          trick: trickEn
+        },
+        kn: {
+          q: qKn || qEn,
+          options: [o0, o1, o2, o3],
+          trick: trickKn
+        },
+        correct: type === 'mcq' ? checkedIndices[0] : checkedIndices
+      };
+
+      return { data: newQ };
+    }
+
+    addToQuizBtn.addEventListener('click', () => {
+      const res = buildQuestionFromForm();
+      if (res.error) {
+        formMsg.className = 'p-2 rounded-lg text-xs font-semibold bg-rose-100 text-rose-900 border border-rose-300';
+        formMsg.textContent = res.error;
+        formMsg.classList.remove('hidden');
+        return;
+      }
+
+      masterQuestions.push(res.data);
+      applyFilter(activeFilter);
+
+      formMsg.className = 'p-2 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300';
+      formMsg.textContent = '✓ Question added successfully to the live quiz!';
+      formMsg.classList.remove('hidden');
+
+      setTimeout(() => {
+        formMsg.classList.add('hidden');
+        creatorModal.classList.add('hidden');
+        // Jump to the newly added question
+        currentIndex = filteredQuestions.length - 1;
+        startTimer();
+        renderQuestion();
+      }, 1000);
+    });
+
+    copyCodeBtn.addEventListener('click', () => {
+      const res = buildQuestionFromForm();
+      if (res.error) {
+        formMsg.className = 'p-2 rounded-lg text-xs font-semibold bg-rose-100 text-rose-900 border border-rose-300';
+        formMsg.textContent = res.error;
+        formMsg.classList.remove('hidden');
+        return;
+      }
+
+      const codeStr = JSON.stringify(res.data, null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(codeStr).then(() => {
+          formMsg.className = 'p-2 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300';
+          formMsg.textContent = '✓ Code block copied to clipboard!';
+          formMsg.classList.remove('hidden');
+        });
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = codeStr;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        formMsg.className = 'p-2 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300';
+        formMsg.textContent = '✓ Code block copied to clipboard!';
+        formMsg.classList.remove('hidden');
+      }
+    });
+
+    // Initialize
+    loadSavedPreferences();
+    startTimer();
+    renderQuestion();
+  </script>
+</body>
+</html>
